@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cas d’usage de l’IA dans les administrations publiques – Annexe VI</title>
+<style>
+:root{--bg:#fff;--card:#fff;--ink:#1c1b2e;--mut:#55526b;--line:#d7d3ec;--acc:#130089;--sec:#ab0345;--accbg:#efedfa;--nd:#7d7a92}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Georgia,"Times New Roman",serif}
+header{padding:28px 20px 8px;max-width:1180px;margin:auto}
+h1{font:700 1.65rem/1.25 "Trebuchet MS",Verdana,sans-serif;margin:0 0 6px;color:var(--acc);padding-left:14px;border-left:6px solid var(--sec)}
+.sub{color:var(--mut);margin:0;max-width:70ch}
+.bar{max-width:1180px;margin:18px auto 0;padding:0 20px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+button{font:600 .95rem "Trebuchet MS",Verdana,sans-serif;cursor:pointer}
+.tab{padding:9px 16px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:6px}
+.tab[aria-selected=true]{background:var(--acc);border-color:var(--acc);color:var(--bg)}
+.tab span{font-weight:400;opacity:.8;margin-left:6px}
+input{flex:1;min-width:200px;padding:9px 12px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--ink);font:inherit}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.wrap{max-width:1180px;margin:18px auto;padding:0 20px;display:grid;grid-template-columns:270px 1fr;gap:24px}
+@media(max-width:800px){.wrap{grid-template-columns:1fr}}
+nav{align-self:start;position:sticky;top:12px}
+@media(max-width:800px){nav{position:static}}
+nav h2{font:700 .9rem "Trebuchet MS",sans-serif;color:var(--sec);margin:14px 0 4px}
+nav button{display:block;width:100%;text-align:left;padding:7px 10px;border:0;border-left:3px solid transparent;background:none;color:var(--ink);font-weight:400;border-radius:0 5px 5px 0}
+nav button:hover{background:var(--accbg)}
+nav button[aria-current=true]{border-left-color:var(--sec);color:var(--acc);background:var(--accbg);font-weight:700}
+nav small{color:var(--mut)}
+main h2{color:var(--acc);font:700 1.3rem "Trebuchet MS",sans-serif;margin:0 0 4px}
+.cnt{color:var(--mut);margin:0 0 14px}
+article{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--acc);border-radius:8px;padding:16px 18px;margin-bottom:12px}
+article h3{font:700 1.05rem/1.35 "Trebuchet MS",sans-serif;margin:0 0 4px}
+.dom{color:var(--sec);font:.85rem "Trebuchet MS",sans-serif;margin:0 0 6px}
+dl{margin:10px 0 0}
+dt{font:700 .85rem "Trebuchet MS",sans-serif;color:var(--mut);margin-top:10px}
+dd{margin:2px 0 0}
+dd ul{margin:2px 0 0;padding-left:20px}
+.nd{color:var(--nd);font-style:italic}
+.cat{display:inline-block;background:var(--accbg);color:var(--acc);padding:1px 9px;border-radius:12px}
+footer{max-width:1180px;margin:10px auto 40px;padding:0 20px;color:var(--mut);font-size:.9rem}
+</style>
+</head>
+<body>
+<header>
+<h1>Cas d’usage de l’IA dans les administrations publiques</h1>
+<p class="sub">Panorama recensé par la mission dans les administrations publiques françaises (annexe VI du rapport). Choisissez un type de cas d’usage, puis un domaine.</p>
+</header>
+<div class="bar">
+<div class="tabs" role="tablist" id="tabs"></div>
+<input id="q" type="search" placeholder="Rechercher dans tous les cas d’usage (outil, administration, mot-clé)" aria-label="Rechercher">
+</div>
+<div class="wrap"><nav id="nav" aria-label="Domaines"></nav><main id="main" aria-live="polite"></main></div>
+<footer>Éléments déclaratifs transmis à la mission, non vérifiés systématiquement. Recensement ni exhaustif ni pérenne. N.D. : non disponible. Source : annexe VI, « Panorama de cas d’usage recensés par la mission dans les administrations publiques françaises ».</footer>
+<script>
+const CATS={T:"Gains de temps sur tâches réalisées",Q:"Qualité du travail améliorée",S:"Qualité du service améliorée",D:"Prise de décision améliorée",F:"Gains financiers",A:"Meilleure attractivité",I:"Amélioration de l’image de l’organisation"};
+const TYPES={g:"Généralistes",f:"Fonctions support",m:"Métiers et sectoriels"};
+/* Entrée : [cas d’usage, administrations (séparées par « ; »), code catégorie de gain, exemples de gains (séparés par « ; »)] */
+const D={
+g:[
+["Tâches administratives générales",[
+["Assistant généraliste polyvalent (rédaction de documents, de comptes rendus, de courrier, de mail, recherche documentaire)","Ministères sociaux (Copilot, SocleIA) ; Ministère de la justice (Albert) ; Ministère de l’économie et des finances : DGFIP, DGE (Keskia, Noota) ; Divers ministères (Assistant IA) ; Région Bourgogne-Franche-Comté et Agence Régionale du numérique et de l’IA (CmonIA) ; Départements : Loiret (Claude), Dordogne, Yonne, Isère (solution interne) ; Ville de Paris (Copilot) ; Organismes de sécurité sociale : CNAV, CNAF, Urssaf (MonIA) ; UCANSS (Copilot) ; ANSM (Le Chat) ; ARS (Copilot) ; Université de Rennes (RAGaRenn) ; Établissements de santé : CHU d’Angers (ChatGPT), GHT de la Côte d’Opale, CHU de Grenoble Alpes, hôpital européen de Marseille, GHT Bretagne Sud, GHT Vaucluse (Copilot), Hospices Civils de Lyon (Le Chat, ChatGPT), CHU de Poitiers (Le Chat), CHU de Rennes","T","CNAV : gain de 20 à 30 % de temps sur des tâches courtes comme les comptes rendus ; ARS : gain de 30 minutes par compte rendu ; Loiret et Yonne : gains de temps de 20 à 50 % ; Somme : gains de temps moyen de 30 minutes par agent par jour ; Indre-et-Loire : économie de prestations de transcription"],
+["Portail multi-usages (recherche documentaire, analyse documentaire, synthèse documentaire, anonymisation de documents, rédaction de documents, traduction, analyse de données, choix du modèle, gestion de la boîte mail, construction d’assistants privés, promptothèque, analyse ou création d’images)","France Travail (Chat FT) ; Ministère des armées (GenIAl.intradef) ; Ministère de l’intérieur (MIrAI) ; Ministère de la transition écologique (Portail des IA génératives – PIAG) ; Ministère de l’agriculture et de l’alimentation (PIAG) ; Agence de services et de paiement ; CNAM (CamelIA) ; Région Île-de-France (GENiale)","T","France Travail : gain mesuré de 30 minutes par conseiller par semaine, rédaction d’une offre d’emploi passe de 15 minutes à 3-4 minutes, aide à la préparation des entretiens et à la rédaction des comptes rendus ; CNAM : 15 à 30 minutes par semaine par utilisateur (pour 35 % des utilisateurs fin 2025)"]]],
+["Tâches administratives ciblées",[
+["Recherche documentaire interne","CNAV (Brévo) ; Ministère de l’économie et des finances (Eternel) ; Ministère de la transition écologique (SofIA)","T","CNAV : gain de qualité également (rédaction, création de campagnes d’information)"],
+["Transcription audio d’instances et de commissions, réalisation de comptes rendus de réunions","Départements : Indre-et-Loire, Var, Val d’Oise (DélibIA), Lozère (TranscribIA), Meurthe-et-Moselle (CaTia54) ; Région Île-de-France ; CNAM (Dicte.IA)","T","CD 37 et région Île-de-France : économies de prestations de services ; CNAM : qualité du travail améliorée, rédaction alignée sur le standard de communication, contrôle qualité automatisé"],
+["Transcription asynchrone et traduction multi-langues","Ministère de l’Europe et des affaires étrangères (DiploIA)","T","MEAE : transcription audio optimisée avec une fiabilité de 99 % ; gain de près de 3 heures de travail en moyenne pour 1 heure d’enregistrement, gain qualitatif via la structuration de la transcription"],
+["Anonymisation de documents","Urssaf (IAnonymisation)","T","Fiabilité améliorée grâce à l’IA (passage de 90 % à 98 %)"]]]
+],
+f:[
+["Achats et approvisionnement – Passation et exécution d’un marché public",[
+["Préparation de documents contractuels et des pièces d’appel d’offres, synthèse et analyse des offres, rédaction des rapports d’analyse, envoi des courriers de notifications, suivi de l’exécution","Établissements de santé : CH de Périgueux (MA-IA), GHT Alpes du Sud ; UniHA (NAIA)","T","Économie de temps sur les postes d’acheteur"],
+["Sourcing des fournisseurs, aide à la rédaction des clauses, à l’analyse des offres, analyse multicritères","Direction des achats de l’État : mobilisant également des services acheteurs ministériels, des plateformes régionales des achats (PFRA) et plusieurs établissements publics, en lien avec la direction générale des entreprises (DGE)","T","Gain de temps supérieurs à 60 % sur ces tâches et gain qualitatif (complétude et pertinence)"],
+["Prospection du marché","UGAP (Salesforce)","Q",""]]],
+["Achats et approvisionnement – Approvisionnement / gestion des stocks",[
+["Lutte contre gaspillage alimentaire dans les cantines scolaires","Collectivités territoriales : département de Meurthe-et-Moselle, Nantes Métropole, ville de Troyes","F","Nantes Métropole : amélioration du taux de fiabilité de la prévision de 93 % (horizon dix semaines) à 98 % (horizon trois semaines)"]]],
+["Affaires juridiques – Veille, recherche et analyse juridique",[
+["Recherche juridique, analyse de la réglementation et/ou jurisprudence, synthèse de textes, aide à la rédaction de réponses","UCANSS, Urssaf (CRA Assist) ; Ministère de l’intérieur (JuriGPT) ; Ministère des affaires étrangères (DiploIA) ; Ministères économiques et financiers : DAJ (Doctrine) ; Ministères sociaux : DAJ ; Ministère de l’agriculture : DAJ (PIAG) ; Départements : Loiret (Perplexity Pro), Dordogne, Yonne ; Établissements de santé : CHU d’Angers, GHT Diaconesses Croix Saint-Simon (Doctrine)","T","Départements : 50 % de gains de temps pour les recherches complexes (Loiret) et 50 % de gains de temps pour la recherche de jurisprudence (Yonne) ; UCANSS : taux de pertinence des réponses de 70 % ; Urssaf : qualité rédactionnelle et satisfaction des utilisateurs améliorées ; CHU d’Angers : économie de frais d’avocat"]]],
+["Affaires juridiques – Production réglementaire",[
+["Aide à la rédaction des délibérations","Région Pays de Loire (DélibIA)","",""]]],
+["Gestion budgétaire, comptable et financière – Facturation / recouvrement",[
+["Traitement de pièces administratives pour contrôle de conformité (facturation, codage)","Établissements de santé : CH intercommunal de Créteil ; Association hospitalière Nord Artois Cliniques (DIMBOX IA) ; GHT Centre Manche ; CHU de Clermont Ferrand ; Hôpital Sainte Camille ; GHT Yvelines Sud (Collective Thinking) ; CH d’Albi ; CHU Amiens Picardie ; CHU de Limoges ; CH Métropole Savoie ; CHU de Lille (SanCare) ; CH de Beauvais","T","Contrôle amélioré de conformité des facturations des transporteurs sanitaires à partir de données Google ; CHU de Limoges : 400 k€ de recettes supplémentaires en 2023 par l’amélioration de la qualité du codage ; CH de Beauvais : gains estimés entre 150 et 200 k€ par an"],
+["Traitement de pièces administratives pour contrôle de conformité et liquidation (notes de frais)","Département du Loiret (Claude)","T",""],
+["Traitement de pièces administratives pour gestion des financements de recherche (préparation des dossiers de demande de financement, facturation interservices)","CHU de Nancy","T","Gain de temps équivalent à 0,5 voire 1 ETP"]]],
+["Gestion budgétaire, comptable et financière – Suivi budgétaire et financier",[
+["Prévision et suivi de recettes : droits de mutation à titre onéreux, gestion de la dette","Départements de la Côte d’Or et du Var","D","Anticipation des recettes par une amélioration de la projection, appui à la décision politique"],
+["Analyse prédictive de la situation budgétaire et financière","Départements : Bouches-du-Rhône, Var (Gemini), Vienne","",""],
+["Analyse prédictive pour suivi financier des communes","Ministères économiques et financiers : DGFiP","T",""]]],
+["Gestion des infrastructures – Organisation de la maintenance des installations",[
+["Analyse documentaire pour prioriser la maintenance des installations et infrastructures","Collectivités territoriales : départements (Calvados et Manche (Vialytics), Côte d’Or, Lozère, Var), ville de Paris (Dansmarue) ; IGN (Panoramax)","T","Ville de Paris : traitement d’un million de photos par an"],
+["Organisation de la maintenance des installations (gestion du parc matériel)","Ministère des armées : service d’infrastructure de la défense","F",""],
+["Lecture de plans architecturaux","Ministère de l’intérieur : DGSCGC (direction générale de la sécurité civile et de la gestion des crises)","Q",""]]],
+["Gestion des infrastructures – Gestion du réseau d’eau",[
+["Analyse de données (détection de fuites d’eau, analyse du réseau) pour prioriser les opérations de maintenance sur le réseau d’eau (maintenance préventive, maintenance curative plus réactive)","Collectivités territoriales : départements (Corrèze, Côte d’Or, Hérault, Val-de-Marne), commune de Saint-Savin (Leakmited)","T","Commune de Saint-Savin : économie de 150 m3 d’eau par jour (fuites évitées), rendement du réseau passé de 75 % à 90 %"]]],
+["Gestion des infrastructures – Pilotage des dépenses d’énergie",[
+["Analyse des consommations d’énergie","Collectivités territoriales : départements (Côte d’Or, Vienne), ville de Saint-Sulpice-La-Forêt","F","Ville de Saint-Sulpice-La-Forêt : économie de 45 000 € en six ans"]]],
+["Ressources humaines – Recrutement",[
+["Préparation d’une fiche de poste","Agences régionales de santé (Copilot)","T","Gain de 45 minutes par fiche de poste"],
+["Préparation d’une fiche de poste","Ministère de l’éducation nationale (Virtuo)","",""],
+["Rapprochement entre offres d’emploi et candidatures","DGAFP (plateforme « Choisir le service public »)","S",""]]],
+["Ressources humaines – Gestion des agents publics",[
+["Gestion des dossiers RH, procédures disciplinaires","CHU de Nancy","",""],
+["Gestion des contrats de travail, des avancements et des positions administratives des agents des collectivités territoriales","Centre de gestion de la Haute-Savoie","Q","Gain de 20 % de temps sur le contrôle des actes, réorienté vers le conseil aux collectivités territoriales ; Diminution du taux de rotation de l’équipe concernée"],
+["Analyse des entretiens d’évaluation annuels","Département de Meurthe-et-Moselle","D",""]]],
+["Ressources humaines – Gestion de la formation",[
+["Instruction des dossiers de financement de formations","AGEFIPH (Salesforce)","T","Délai de traitement des dossiers divisé par trois"],
+["Formation des nouveaux agents : chatbot pour l’onboarding","CNAM","A",""]]],
+["Ressources humaines – Relation avec les collaborateurs",[
+["Réponse aux questions des collaborateurs","Conseil d’État ; Établissements de santé : CHU de Nancy, CHU de Montpellier ; Ministères économiques et financiers : DGDDI (3D - chatbot accompagnement RH) ; DGAFP ; Collectivités territoriales : Région Île-de-France (Copilot), départements (Calvados et Loiret (Wikit), Manche), villes (Créteil, Lille, Versailles) ; Sécurité sociale : Urssaf (Prhoxima), CNAV (aRHiane) ; Rectorats de Nancy et de Poitiers (chatbots RH)","S","Académie de Poitiers : baisse de 95 % du nombre d’appels et de 63 % du nombre de mails, qualité de vie au travail et qualité de réponse améliorées ; Rectorat de Nancy : retour sur investissement attendu à l’issue de deux années"]]],
+["Ressources humaines – Gestion des plannings",[
+["Confection des plannings","Établissements de santé : CHU de Brest ; CH Métropole Savoie (HOPIA) ; GHT de la Réunion ; CHU de Clermont Ferrand","Q",""]]],
+["Systèmes d’information – Développement informatique",[
+["Aide à la programmation informatique","Agence de services et de paiement (Copilot) ; Établissements de santé : CHU de Lille ; Sécurité sociale : Urssaf, CNAM, CNAV","A","CNAM : gains de productivité estimés à 5 % sur la base de 100 développeurs en test ; CNAV : gains de 30 minutes à deux heures par semaine par développeur"]]],
+["Systèmes d’information – Cybersécurité et supervision réseau et infrastructure",[
+["Suivi et couverture du risque cyber","Établissements de santé : CHU de Poitiers (Darktrace), GHT des Deux Sèvres","Q","Capacité de réplique améliorée"]]],
+["Systèmes d’information – Support informatique et technique",[
+["Réponse aux utilisateurs des outils informatiques","Collectivités : Région Île-de-France ; départements (Morbihan, Corrèze, Loir-et-Cher, Loiret, Somme, Val d’Oise) ; Établissements de santé : CHU de Nancy, CHU de Montpellier ; Ministères économiques et financiers : DGDDI ; Ministère de l’intérieur (MIrAI) ; Ministère de l’agriculture ; Urssaf (Polaris)","S",""],
+["Baromètre numérique des utilisateurs","Ministères économiques et financiers : secrétariat général","S",""]]]
+],
+m:[
+["#Domaines transverses"],
+["Conception des politiques publiques – Analyse des besoins / attentes des usagers",[
+["Analyse de données géographiques et forestières (analyse de l’occupation des sols, cartographie prédictive des ressources minières)","Institut géographique national (OCS GE) ; Bureau de recherche géologiques et minières","",""],
+["Aide au diagnostic territorial (dispositifs, contrats locaux, données spécifiques)","Agences régionales de santé (Copilot)","D","Amélioration de l’analyse territoriale"]]],
+["Conception des politiques publiques – Production du cadre normatif",[
+["Assistance à la mobilisation du code des douanes","Ministères économiques et financiers : DGDDI (chatbot juridique)","Q","Lecture facilitée et compréhension améliorée du nouveau code des douanes"],
+["Gestion des amendements parlementaires (analyse, orientation et tri, synthèse)","Ministères économiques et financiers (LlaMandement) ; Ministères sociaux (GRAAL)","T","Ministères économiques et financiers : gain de près de cinq heures sur l’attribution des amendements au projet de loi de finances pour les équipes de la direction de la législation fiscale ; Ministères sociaux : gain de 48 heures sur l’attribution des amendements pour les équipes de la direction de la sécurité sociale"],
+["Aide à la rédaction de textes normatifs","Ministères sociaux : DAJ (Edile) ; Ministère de l’aménagement du territoire et de la décentralisation : DGCL (Edile)","T",""],
+["Aide au contrôle de légalité (tri et priorisation des actes à contrôler)","Préfecture de Haute-Garonne (Prelex) ; Préfecture de région Île-de-France","D","Préfecture de région Île-de-France : temps de traitement des actes divisé par trois"],
+["Analyse des positions de vote à l’ONU et des ressources documentaires onusiennes","Ministère des affaires étrangères (outil ONU)","T",""]]],
+["Mise en œuvre des politiques publiques – Instruction de dossiers",[
+["Instruction et traitement de dossier de demande de prestation (vérification des pièces justificatives, analyse du dossier, aide à la prise de décision) jusqu’au versement de l’allocation","CNAF (traitement des déclarations de grossesse) ; Départements : Hérault, Vienne, Morbihan, Indre-et-Loire, Isère, Côte d’Or, Hautes-Pyrénées, Eure, Paris, Alpes-Maritimes, Meurthe-et-Moselle, Somme, Finistère","T","CNAF : 3,8 millions de pièces traitées en 2023, + 10 % par rapport à 2022 ; Département du Morbihan : taux de complétude des dossiers de 40 %"],
+["Gestion des droits des étrangers","Ministère de l’intérieur : préfecture 54","T","Gains en effectifs redéployés pour créer une maison France Services"],
+["Instruction de dossiers administratifs (demande de financement de programme d’éducation thérapeutique) jusqu’à la préparation du courrier de réponse","Agences régionales de santé (Copilot)","T","Gain de temps d’analyse de trois heures par dossier"],
+["Instruction de dossiers d’autorisations environnementales","Ministère de la transition écologique (LIRIAe)","T",""],
+["Traitement de documents entrants (qualification, tri, orientation)","France Travail (Panoptes)","T",""],
+["Instruction de demandes de subventions pour vélos électriques","Région Île-de-France","",""]]],
+["Mise en œuvre des politiques publiques – Renseignement automatique de documents administratifs ou métiers",[
+["Écoute ambiante pour pré-remplissage de documents administratifs ou des dossiers des patients","Établissements de santé","",""]]],
+["Mise en œuvre des politiques publiques – Ciblage et personnalisation de la prestation de service public",[
+["Analyse de données pour cibler les offres d’emploi à proposer aux demandeurs d’emploi et personnaliser le conseil et l’offre de service (formation, ateliers, job dating)","France Travail (MatchFT)","S","Gain sur le délai de pourvoi d’un poste, expérience des candidats améliorée, taux de réponse aux SMS supérieur aux appels téléphoniques, meilleur ciblage des candidats sur une offre d’emploi"],
+["Identification des zones de fragilités et de territoires de non recours pour les bénéficiaires de l’APA","Département de l’Yonne (Alogia)","S",""]]],
+["Évaluation et contrôle – Lutte contre la fraude",[
+["Analyse de données pour détection de fraudes","Agence de services et de paiement ; Ministères économiques et financiers : DGFiP (CFVR), DGDDI (Vitiviz, SARC) ; Ministères sociaux : DGEFP (Dataviz-ciblage-AP) ; IGN (Foncier Innovant) ; Sécurité sociale : CNAF (DMDE), CNAM, Urssaf","F","DGFiP : gain de 43 M€ de recettes fiscales sur une année, grâce à la détection de piscines ; Urssaf : 2/3 des contrôles sur place sont issus du data mining"],
+["Détection des produits illicites dans les colis","Ministères économiques et financiers : DGDDI (100 % scanning)","Q","Détection de produits illicites améliorée et réduction du nombre de colis ouverts (gains attendus)"]]],
+["Évaluation et contrôle – Inspection",[
+["Aide à la rédaction et à la synthèse de rapports d’inspection","Agences régionales de santé","T",""],
+["Aide au ciblage des inspections des EHPAD (identification de signaux faibles)","Agences régionales de santé","D","Meilleur ciblage des contrôles"]]],
+["Évaluation et contrôle – Démarche qualité interne",[
+["Traitement des alertes de conformité et des évènements indésirables","Agences régionales de santé","D","Gain de temps et sur la pertinence de l’analyse par un meilleur repérage des situations à risque et des signaux faibles"],
+["Préparation de la réponse aux réclamations des citoyens","Agences régionales de santé ; Ville de Paris","T","ARS : gain de 15 minutes par dossier"]]],
+["Relation avec les usagers – Communication à destination des usagers",[
+["Création et organisation d’événements","France Travail (ChatFT)","S",""],
+["Communication externe","Hôpital européen de Marseille (ChatGPT)","",""],
+["Rédaction de procès-verbaux et décisions administratives en langage courant","Région Île-de-France (Ma région près de chez moi)","I",""],
+["Information des usagers sur leur consommation d’énergie","Nantes Métropole (Ekonom’IA)","S",""]]],
+["Relation avec les usagers – Réponse aux questions et sollicitations des agents et usagers",[
+["Gestion des flux d’appels entrants, première réponse, préqualification et orientation","Collectivités territoriales : départements (Dordogne, Var, Vaucluse, Val d’Oise, Vienne), villes (Paris (assistant sur le plan local d’urbanisme), Plaisir, Meudon) ; Sécurité sociale : CNAM, Urssaf","S","URSSAF : flux de courriers entrants divisé par deux, 24 % d’appels absorbés sur un échantillon de 3 millions d’appels entrants, 7 % des appels gérés hors heures ouvrées"],
+["Gestion des flux de mails entrants, première réponse, préqualification et orientation","Urssaf","S",""],
+["Aide à la réponse aux usagers","Ministères économiques et financiers : DGFIP (Econtact+), DGCCRF (Réponse conso) ; CNAV ; Maisons France Services (Albert) ; Établissements de santé : Hôpital Paris Saint Joseph - Marie Lannelongue, hôpital européen de Marseille","S","Maisons France Services : délai de réponse divisé par deux (de six à trois jours)"]]],
+["#Domaines sectoriels"],
+["Économie et finances – Gestion des finances publiques",[
+["Réponse de premier niveau aux utilisateurs de Chorus Pro et orientation vers un conseiller","Ministères économiques et financiers : AIFE (Chatbot Chorus Pro)","S","80 % de réponses traitées via le chatbot"],
+["Aide au ciblage des contrôles hiérarchisés de la dépense","Ministères économiques et financiers : AIFE (assistance au contrôle hiérarchisé de la dépense)","D",""]]],
+["Éducation et enseignement supérieur",[
+["Personnalisation de la prestation / accompagnement : repérage des besoins spécifiques des élèves en français et mathématiques, outils pédagogiques personnalisés","Ministère de l’éducation nationale (MIA Seconde)","S",""],
+["Enseignement : création de contenu pédagogique (génération de quizz à partir de supports)","Départements","T",""],
+["Enseignement : préparation des cours, aide à la correction","CentraleSupélec (Aristote)","T","Gains de temps entre deux et quatre heures par semaine par enseignant"]]],
+["Justice et protection des populations – Justice administrative",[
+["Aide à la gestion des contentieux contre les décisions administratives (infractions au code de la route, par exemple)","Ministère de l’intérieur (Astrée)","T",""],
+["Gestion des requêtes du tribunal du stationnement payant (vérification de la complétude des dossiers, pré-remplissage de données)","Conseil d’État","",""],
+["Recherche documentaire (décisions, certificats, histoire d’un texte, jurisprudence, préparation d’une requête administrative)","Conseil d’État","",""]]],
+["Justice et protection des populations – Justice civile et pénale",[
+["Qualification de l’infraction pénale","Ministère de l’intérieur (PredNatinf)","T",""],
+["Transcription audio des auditions de mineurs victimes","Ministère de l’intérieur (Parole)","T",""],
+["Aide à l’instruction et la synthèse des procédures pénales","Cour d’appel de Paris (Mon assistant pénal)","",""],
+["Aide à l’instruction et la synthèse des procédures civiles","Cour d’appel de Paris (Mon assistant civil)","",""],
+["Classement et orientation des pourvois vers les chambres appropriées","Cour de cassation","",""],
+["Anonymisation des décisions de justice en vue de leur publication","Cour de cassation","",""]]],
+["Justice et protection des populations – Gestion des risques",[
+["Détection des non-conformités, d’évènements inhabituels ou de situations à risque (épisodes climatiques, feux de forêt, dépôt sauvage d’ordures …)","IGN (GéoAlbert, Panoramax) ; Collectivités territoriales : Région Centre-Val de Loire (PrevizO), départements (Indre-et-Loire (Copilot), Côte d’Or (jumeau numérique)), villes (Nîmes (Hydr.IA), Carnelle Pays-de-France)","D",""]]],
+["Mobilités, transports – Gestion des flux de voyageurs",[
+["Analyse des mobilités (analyse du stationnement, optimisation des temps de transport)","Collectivités territoriales : communauté d’agglomération du Sicoval (Tracking GPS), ville de Nancy","F",""]]],
+["Santé et solidarités – Accompagnement social",[
+["Assistant IA pour les travailleurs sociaux (aide à la rédaction de rapports et à l’instruction des dossiers)","Départements : Calvados (Agent14), Meurthe-et-Moselle, Isère, Haute-Saône, Côte d’Or, Corrèze, Ardennes, Deux-Sèvres","S","Meurthe-et-Moselle et Isère : facilitation du travail des travailleurs sociaux pour le suivi de l’aide sociale à l’enfance (ASE) et du revenu de solidarité active (RSA)"],
+["Traduction multilingue","Département des Pyrénées-Atlantiques","S",""]]],
+["Santé et solidarités – Retraites et recouvrement des cotisations",[
+["Retraites : conseil aux TPE/PME sur les retraites","CNAV (IApasdequoi)","S",""],
+["Recouvrement des cotisations : traitement de la déclaration sociale nominative (DSN) pour correction d’erreurs déclaratives","Urssaf (DecaDNS)","T","Au-delà des gains de temps, amélioration du service rendu"]]],
+["Santé et solidarités – Planification et organisation des soins",[
+["Prise de rendez-vous, organisation des hôpitaux de jour","CHU de Nancy","T","Au-delà des gains de temps, amélioration du service rendu"],
+["Gestion et orientation des appels au centre « 15 » (numéro d’urgence)","Établissements de santé : GHT Yvelines Sud","Q",""],
+["Gestion des flux aux urgences (anticipation des flux de passage, planification des ressources)","Établissements de santé : GHT Nord Saône et Loire, GHT Yvelines Sud, Assistance publique - Hôpitaux de Marseille, CHU de Tours","S","Gains attendus (expérimentation en cours) : optimisation de l’affectation des ressources (humaines, capacitaires) et amélioration des délais de prise en charge des patients"]]],
+["Santé et solidarités – Prestation financière / financement des établissements",[
+["Instruction des dossiers des MDPH","CNSA","Q","Gains attendus (expérimentation en cours) : réduction des délais d’instruction des dossiers de demande de prestations (5 mois en moyenne pour un délai légal de 4 mois maximum)"],
+["Aide à l’attribution de subventions aux pharmacies d’officine en difficulté financière","CNAM (CamelIA)","Q","Soutien au maillage territorial de l’offre officinale"],
+["Préparation du dialogue de gestion avec un opérateur (analyse du budget, de la situation financière, des documents fournis, préparation du dialogue)","Agences régionales de santé","T","Gain de temps de deux heures par dossier"]]],
+["Travail et emploi – Formation professionnelle",[
+["Analyse prédictive du marché de l’alternance et facilitation de l’appariement entre offres et demandes d’alternances","Ministères sociaux : DGEFP (Parole)","S",""],
+["Gestion des contrats d’apprentissage","Ministères sociaux : DGEFP (Power automate)","T",""],
+["Modération des enquêtes et verbatims laissés en ligne","Ministères sociaux : DGEFP (SIRIUS)","S",""]]],
+["Travail et emploi – Emploi et réponse aux citoyens",[
+["Emploi : rédaction des offres d’emploi","France Travail (ChatFT)","T",""],
+["Emploi : synthèse du dossier d’un demandeur d’emploi","France Travail (NEO)","T","Libère du temps pour l’entretien et la relation avec le demandeur"],
+["Emploi : remplissage automatique des démarches réalisées par les demandeurs d’emploi (speech to text) : test sur les contrats d’engagement jeune en Île-de-France","France Travail (QualifFT)","S",""],
+["Réponse aux citoyens : réponse aux usagers par les inspecteurs du travail des DDETSPP","Ministères sociaux : DNUM","T",""]]]
+]};
+const $=id=>document.getElementById(id);
+let type="g",dom=0,query="";
+const norm=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+const el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!==undefined)e.textContent=x;return e};
+const count=t=>D[t].reduce((n,d)=>n+(d[1]?d[1].length:0),0);
+function list(txt){if(!txt){return el("span","nd","N.D.")}const u=el("ul");txt.split(" ; ").forEach(s=>u.append(el("li","",s)));return u}
+function card(e,domName){const a=el("article");if(domName)a.append(el("p","dom",domName));a.append(el("h3","",e[0]));const dl=el("dl");
+ const row=(k,v)=>{dl.append(el("dt","",k));const d=el("dd");d.append(v);dl.append(d)};
+ row("Exemples d’administrations publiques utilisatrices",list(e[1]));
+ row("Principale catégorie de gain déclaré",e[2]?el("span","cat",CATS[e[2]]):el("span","nd","N.D."));
+ row("Exemples de gains déclarés",list(e[3]));a.append(dl);return a}
+function render(){
+ const tabs=$("tabs");tabs.textContent="";
+ Object.keys(TYPES).forEach(k=>{const b=el("button","tab",TYPES[k]);b.setAttribute("role","tab");b.setAttribute("aria-selected",k===type&&!query);b.append(el("span","","("+count(k)+")"));b.onclick=()=>{type=k;dom=D[k].findIndex(d=>d[1]);query="";$("q").value="";render()};tabs.append(b)});
+ const nav=$("nav"),main=$("main");nav.textContent="";main.textContent="";
+ if(query){nav.hidden=true;const q=norm(query);let n=0;
+  Object.keys(D).forEach(k=>D[k].forEach(d=>{if(!d[1])return;d[1].forEach(e=>{if(norm(e.join(" ")).includes(q)){n++;main.append(card(e,TYPES[k]+" – "+d[0]))}})}));
+  main.prepend(el("p","cnt",n+" résultat"+(n>1?"s":"")+" pour « "+query+" »"));if(!n)main.append(el("p","nd","Aucun cas d’usage ne correspond."));return}
+ nav.hidden=false;
+ D[type].forEach((d,i)=>{if(!d[1]){nav.append(el("h2","",d[0].slice(1)));return}
+  const b=el("button","",d[0]);b.append(" ");b.append(el("small","","("+d[1].length+")"));if(i===dom)b.setAttribute("aria-current","true");b.onclick=()=>{dom=i;render();scrollTo(0,0)};nav.append(b)});
+ const d=D[type][dom];main.append(el("h2","",d[0]));main.append(el("p","cnt",d[1].length+" cas d’usage"));d[1].forEach(e=>main.append(card(e)))}
+$("q").oninput=e=>{query=e.target.value.trim();render()};
+render();
+</script>
+</body>
+</html>
